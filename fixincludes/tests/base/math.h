@@ -30,6 +30,13 @@
 #endif  /* DARWIN_9_LONG_DOUBLE_FUNCS_2_CHECK */
 
 
+#if defined( DARWIN_FLOAT16_CHECK )
+#ifndef __cplusplus
+extern _Float16 __fabsf16(_Float16) __API_AVAILABLE(macos(15.0), ios(18.0), watchos(11.0), tvos(18.0));
+#endif
+#endif  /* DARWIN_FLOAT16_CHECK */
+
+
 #if defined( DARWIN_FLT_EVAL_METHOD_CHECK )
 #if __FLT_EVAL_METHOD__ == 0 || __FLT_EVAL_METHOD__ == 16
 #if __FLT_EVAL_METHOD__ == 0 || __FLT_EVAL_METHOD__ == -1 || __FLT_EVAL_METHOD__ == 16

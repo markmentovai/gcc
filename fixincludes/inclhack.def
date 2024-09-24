@@ -1366,6 +1366,22 @@ fix = {
 };
 
 /*
+ * The macOS 15 SDK's <math.h> uses _Float16, which is avialable in gcc 12 for
+ * C, but not C++.
+ */
+fix = {
+  hackname  = darwin_float16;
+  mach      = "*-*-darwin*";
+  files     = math.h;
+  select    = "^.*(^|[ \t])_Float16[ \t]+__[0-9A-Za-z_]+f16[ \t]*\\([ \t]*_Float16[,) \t].*$";
+  c_fix     = format;
+  c_fix_arg = "#ifndef __cplusplus\n"
+              "%0\n"
+              "#endif";
+  test_text = "extern _Float16 __fabsf16(_Float16) __API_AVAILABLE(macos(15.0), ios(18.0), watchos(11.0), tvos(18.0));";
+};
+
+/*
  * AvailabilityMacros.h on Darwin breaks with GCC 4.0, because of
  * bad __GNUC__ tests.
  */
